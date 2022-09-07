@@ -1,0 +1,66 @@
+{
+  "homescreen": {
+    "hello_text": "你好",
+    "subtitle_text": "本周你的工作和生活平衡么?",
+    "goodjob_text": "做得不错 {}!",
+    "goodjob_subtitle_text": "你的生活与工作达到了很好平衡",
+    "taskstitle": "你的任务",
+    "taskssubtitle": "你在 {} 时间还有 {} 个任务"
+  },
+  "dashboard": {
+    "tasktitle": "你的任务",
+    "taskssubtitle": "你最终已完成 {} 任务",
+    "alertdialog": {
+      "title": "确定?",
+      "subtitle": "您完成的所有待办事项都将被删除，确认吗?",
+      "delete": "删除已完成的待办事项!",
+      "cancel": "取消"
+    },
+    "title": "仪表板"
+  },
+  "profile": {
+    "completed_text": "已完成",
+    "uncompleted_text": "未完成",
+    "alltasks_text": "全部任务",
+    "title": "简介",
+    "stats": "统计"
+  },
+  "changename": {
+    "name_tf": "名称",
+    "surname_tf": "姓氏",
+    "title": "更改名称",
+    "cancel_btn": "取消",
+    "done_btn": "完成"
+  },
+  "addtodo": {
+    "title": "添加任务",
+    "title_tf": "标题",
+    "desc_tf": "描述",
+    "category_tf": "分类",
+    "date": "选择日期\n默认日期: {}",
+    "time": "选择时间\n默认时间 : {}",
+    "add_btn": "添加任务",
+    "cancel_btn": "取消",
+    "selected": "已选择 {}",
+    "error_text": "请输入 {}"
+  },
+  "edittodo": {
+    "title": "编辑任务",
+    "title_tf": "标题",
+    "category_tf": "分类",
+    "desc_tf": "描述",
+    "selecteddate": "已选日期 : {}",
+    "selectedtime": "已选时间 : {}",
+    "default_date": "任务日期 : {}",
+    "default_time": "任务时间 : {}",
+    "edit_btn": "结束编辑",
+    "close_btn": "关闭"
+  },
+  "welcomescreen": {
+    "title": "欢迎",
+    "subtitle": "请提供您的姓名以称呼您",
+    "done_button": "确定",
+    "name_tf": "名字",
+    "surname_tf": "姓氏"
+  }
+}
