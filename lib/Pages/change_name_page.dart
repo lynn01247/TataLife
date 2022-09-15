@@ -84,7 +84,7 @@ class _ChangeNameScreenState extends State<ChangeNameScreen> {
                                     formKey.currentState!.validate();
                                 if (validResult == true) {
                                   state.setName(nameController.text);
-                                  state.setsurName(surnameController.text);
+                                  state.setSurName(surnameController.text);
                                   Navigator.of(context).pop();
                                 }
                               },

@@ -61,6 +61,7 @@
     "subtitle": "Please provide your name and surname to address you",
     "done_button": "Done",
     "name_tf": "Name",
-    "surname_tf": "Surname"
+    "surname_tf": "Surname",
+    "skip_button" : "Skip"
   }
 }

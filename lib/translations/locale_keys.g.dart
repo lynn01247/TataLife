@@ -54,6 +54,7 @@ abstract class  LocaleKeys {
   static const welcomescreen_title = 'welcomescreen.title';
   static const welcomescreen_subtitle = 'welcomescreen.subtitle';
   static const welcomescreen_done_button = 'welcomescreen.done_button';
+  static const welcomescreen_skip_button = 'welcomescreen.skip_button';
   static const welcomescreen_name_tf = 'welcomescreen.name_tf';
   static const welcomescreen_surname_tf = 'welcomescreen.surname_tf';
   static const welcomescreen = 'welcomescreen';

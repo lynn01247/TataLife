@@ -12,6 +12,7 @@ import 'package:todo_app/provider/shared_prefences_helper.dart';
 class TodosProvider extends ChangeNotifier {
   SharedPreferences? sharedPreferences;
   String _name = '';
+  String _skip = '';
   String _surname = '';
   String imageKey = "IMAGE_KEY";
   Uint8List? imagebytes;
@@ -39,6 +40,7 @@ class TodosProvider extends ChangeNotifier {
   //  getter
   String get name => _name;
   String get surname => _surname;
+  String get skip => _skip;
   UnmodifiableListView<Todo> get allTodos =>
       UnmodifiableListView(todos.reversed);
 
@@ -145,6 +147,12 @@ class TodosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void saveSkip(String skipText) {
+    _skip = skip;
+    sharedPreferences!.setString('skip', skipText);
+    notifyListeners();
+  }
+
   // To-do Percent Method
   double calcTodoPercent(DateTime day) {
     double percent = (completedTodos
@@ -171,10 +179,18 @@ class TodosProvider extends ChangeNotifier {
     }
   }
 
-  void setsurName(String userText) {
+  void setSurName(String userText) {
     if (userText.isEmpty) {
     } else {
       savesurname(userText);
+      notifyListeners();
+    }
+  }
+
+  void setSkip(String skipText) {
+    if (skipText.isEmpty) {
+    } else {
+      saveSkip(skipText);
       notifyListeners();
     }
   }
@@ -194,6 +210,14 @@ class TodosProvider extends ChangeNotifier {
     String? spName = sharedPreferences!.getString('userSurname');
     if (spName != null) {
       _surname = spName;
+      notifyListeners();
+    } else {}
+  }
+
+  void getSkipName() {
+    String? spName = sharedPreferences!.getString('skip');
+    if (spName != null) {
+      _skip = spName;
       notifyListeners();
     } else {}
   }

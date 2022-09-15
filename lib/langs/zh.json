@@ -61,6 +61,7 @@
     "subtitle": "请提供您的姓名以称呼您",
     "done_button": "确定",
     "name_tf": "名字",
-    "surname_tf": "姓氏"
+    "surname_tf": "姓氏",
+    "skip_button" : "跳过"
   }
 }

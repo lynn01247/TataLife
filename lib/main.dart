@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/Pages/life_test_page.dart';
 import 'package:todo_app/Pages/main_screen.dart';
 import 'package:todo_app/Pages/welcome_screen.dart';
 import 'package:todo_app/provider/todos_provider.dart';
@@ -13,7 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   TodosProvider().initSharedPreferences();
-  var userName = await TodosProvider().readName('userName');
+  var skipToNext = await TodosProvider().readName('skip');
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -25,13 +26,13 @@ void main() async {
         path: 'lib/langs',
         supportedLocales: [
           Locale('en'),
-          // Locale('zh'),
+          Locale('zh'),
           Locale('tr'),
         ],
         assetLoader: CodegenLoader(),
         fallbackLocale: Locale('en'),
         child: MyApp(
-          userName: userName.toString(),
+          skipToNext: skipToNext.toString(),
         ),
       ),
     ),
@@ -39,8 +40,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.userName}) : super(key: key);
-  final userName;
+  const MyApp({Key? key, required this.skipToNext}) : super(key: key);
+  final skipToNext;
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +54,10 @@ class MyApp extends StatelessWidget {
         primaryColor: HexColor('#f9f6e8'),
       ),
       localizationsDelegates: context.localizationDelegates,
-      home: userName.toString().contains('null')
+      home: skipToNext.toString().contains('null')
           ? const WelcomeScreen()
-          : const MainScreen(),
+          // : const MainScreen(),
+            : const MyCustomAmniatonPageA(),
     );
   }
 }

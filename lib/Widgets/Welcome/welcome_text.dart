@@ -12,11 +12,11 @@ class welcomeText extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 10.0, left: 10, right: 10),
+              padding: EdgeInsets.only(top: 30.0, left: 10, right: 10),
               child: Text(
                 LocaleKeys.welcomescreen_title.tr(),
                 style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 35,
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
               ),
@@ -36,7 +36,7 @@ class welcomeText extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
-                textAlign: TextAlign.center,
+                // textAlign: TextAlign.center,
               ),
             ),
           ],

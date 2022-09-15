@@ -77,7 +77,8 @@ class CodegenLoader extends AssetLoader{
     "subtitle": "Size hitap etmek için lütfen adınızı ve soyadınızı belirtin",
     "done_button": "Tamam",
     "name_tf": "İsim",
-    "surname_tf": "Soyad"
+    "surname_tf": "Soyad",
+    "skip_button" : "Skip"
   }
 };
 static const Map<String,dynamic> en = {
@@ -143,7 +144,8 @@ static const Map<String,dynamic> en = {
     "subtitle": "Please provide your name and surname to address you",
     "done_button": "Done",
     "name_tf": "Name",
-    "surname_tf": "Surname"
+    "surname_tf": "Surname",
+    "skip_button" : "Skip"
   }
 };
   static const Map<String,dynamic> zh = {
@@ -206,10 +208,11 @@ static const Map<String,dynamic> en = {
     },
     "welcomescreen": {
       "title": "欢迎",
-      "subtitle": "请提供您的姓名以称呼您",
-      "done_button": "确定",
+      "subtitle": "\t\t\t\t\t\t\t\t美国波士顿大学医学院从事老年医学研究的Thomas Perls博士医生和他的研究员们经过对长寿者数十年的跟踪研究表明，人类的寿命是能够‘计算’出来的，5分钟就能算出你的寿命，赶紧试试吧？",
+      "done_button": "立即测试",
       "name_tf": "名字",
-      "surname_tf": "姓氏"
+      "surname_tf": "姓氏",
+      "skip_button" : "跳过"
     }
   };
 static const Map<String, Map<String,dynamic>> mapLocales = {"tr": tr, "en": en, "zh" : zh};
