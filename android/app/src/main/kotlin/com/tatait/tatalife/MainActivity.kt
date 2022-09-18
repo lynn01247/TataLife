@@ -1,4 +1,4 @@
-package com.tatait.tata_life
+package com.tatait.tatalife
 
 import io.flutter.embedding.android.FlutterActivity
 

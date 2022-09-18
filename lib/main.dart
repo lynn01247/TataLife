@@ -1,10 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/Pages/life_test_page.dart';
+import 'package:todo_app/Pages/life_exam_page.dart';
 import 'package:todo_app/Pages/main_screen.dart';
 import 'package:todo_app/Pages/welcome_screen.dart';
 import 'package:todo_app/provider/todos_provider.dart';
@@ -54,10 +53,12 @@ class MyApp extends StatelessWidget {
         primaryColor: HexColor('#f9f6e8'),
       ),
       localizationsDelegates: context.localizationDelegates,
+      routes: {
+        '/MainScreen':(context) => MainScreen()
+      },
       home: skipToNext.toString().contains('null')
           ? const WelcomeScreen()
-          // : const MainScreen(),
-            : const MyCustomAmniatonPageA(),
+            : const LifeExamPage(),
     );
   }
 }

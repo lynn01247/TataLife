@@ -153,6 +153,22 @@ class TodosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void saveExam(String key, String value) {
+    sharedPreferences ??= SharedPreferencesHelper.instance;
+    sharedPreferences!.setString(key, value);
+    notifyListeners();
+  }
+
+  String getExam(String key) {
+    sharedPreferences ??= SharedPreferencesHelper.instance;
+    String? spName = sharedPreferences?.getString(key);
+    if (spName != null) {
+      return spName;
+    } else {
+      return "";
+    }
+  }
+
   // To-do Percent Method
   double calcTodoPercent(DateTime day) {
     double percent = (completedTodos
