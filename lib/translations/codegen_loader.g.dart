@@ -14,73 +14,6 @@ class CodegenLoader extends AssetLoader{
     return Future.value(mapLocales[locale.toString()]);
   }
 
-  static const Map<String,dynamic> tr = {
-  "homescreen": {
-    "hello_text": "Merhaba",
-    "subtitle_text": "Bu hafta iş yaşam dengeniz nasıl?",
-    "goodjob_text": "İyi iş {}!",
-    "goodjob_subtitle_text": "Hayatınız gayet dengeli",
-    "taskstitle": "İşleriniz",
-    "taskssubtitle": "{} tarihi için {} işiniz var"
-  },
-  "dashboard": {
-    "tasktitle": "İşleriniz",
-    "taskssubtitle": "Toplamda {} tane iş bitirmişsiniz",
-    "alertdialog": {
-      "title": "Emin misiniz?",
-      "subtitle": "Tamamlanmış tüm işleriniz silinecek. Bunun farkındasınız değil mi?",
-      "delete": "Tamamlanmış tüm işleri sil!",
-      "cancel": "Vazgeç"
-    },
-    "title": "Panel"
-  },
-  "profile": {
-    "completed_text": "Tamamlanmış",
-    "uncompleted_text": "Tamamlanmamış",
-    "alltasks_text": "Tüm İşleriniz",
-    "title": "Profil",
-    "stats": "İstatistik"
-  },
-  "changename": {
-    "name_tf": "İsim",
-    "surname_tf": "Soyad",
-    "title": "İsminizi Değiştirin",
-    "cancel_btn": "Vazgeç",
-    "done_btn": "Değiştir"
-  },
-  "addtodo": {
-    "title": "İş Ekle",
-    "title_tf": "Başlık",
-    "desc_tf": "Açıklama",
-    "category_tf": "Kategori",
-    "date": "Tarih Seçin\nVarsayılan Tarih: {}",
-    "time": "Saat Seçin\nVarsayılan Saat: {}",
-    "add_btn": "İş Ekle",
-    "cancel_btn": "Vazgeç",
-    "selected": "Seçilen {}",
-    "error_text": "Lütfen {} giriniz"
-  },
-  "edittodo": {
-    "title": "İşi Düzenle",
-    "title_tf": "Başlık",
-    "category_tf": "Kategori",
-    "desc_tf": "Açıklama",
-    "selecteddate": "Seçilen Tarih : {}",
-    "selectedtime": "Seçilen Saat : {}",
-    "default_date": "İşin Tarihi : {}",
-    "default_time": "İşin Saati : {}",
-    "edit_btn": "Düzenlemeyi bitir",
-    "close_btn": "Kapat"
-  },
-  "welcomescreen": {
-    "title": "Hoşgeldin",
-    "subtitle": "Size hitap etmek için lütfen adınızı ve soyadınızı belirtin",
-    "done_button": "Tamam",
-    "name_tf": "İsim",
-    "surname_tf": "Soyad",
-    "skip_button" : "Skip"
-  }
-};
 static const Map<String,dynamic> en = {
   "homescreen": {
     "hello_text": "Hello",
@@ -208,12 +141,12 @@ static const Map<String,dynamic> en = {
     },
     "welcomescreen": {
       "title": "欢迎",
-      "subtitle": "\t\t\t\t\t\t\t\t美国波士顿大学医学院从事老年医学研究的Thomas Perls博士医生和他的研究员们经过对长寿者数十年的跟踪研究表明，人类的寿命是能够‘计算’出来的，5分钟就能算出你的寿命，赶紧试试吧？",
+      "subtitle": "\t\t\t\t\t\t\t\t美国波士顿大学医学院从事老年医学研究的Thomas Perls博士医生和他的研究员们经过对长寿者数十年的跟踪研究表明，人类的寿命是能够‘计算’出来的，5分钟就能算出你的寿命，请简单填写资料后赶紧试试吧？",
       "done_button": "立即测试",
       "name_tf": "名字",
       "surname_tf": "姓氏",
       "skip_button" : "跳过"
     }
   };
-static const Map<String, Map<String,dynamic>> mapLocales = {"tr": tr, "en": en, "zh" : zh};
+static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "zh" : zh};
 }

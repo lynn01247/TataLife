@@ -14,6 +14,7 @@ class TodosProvider extends ChangeNotifier {
   String _name = '';
   String _skip = '';
   String _surname = '';
+  num _gender = -1;
   String imageKey = "IMAGE_KEY";
   Uint8List? imagebytes;
   Uint8List? profileImage;
@@ -141,9 +142,15 @@ class TodosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void savesurname(String userText) {
+  void saveSurname(String userText) {
     _surname = userText;
     sharedPreferences!.setString('userSurname', userText);
+    notifyListeners();
+  }
+
+  void saveGender(int gender){
+    _gender = gender;
+    sharedPreferences!.setInt('gender', gender);
     notifyListeners();
   }
 
@@ -198,11 +205,18 @@ class TodosProvider extends ChangeNotifier {
   void setSurName(String userText) {
     if (userText.isEmpty) {
     } else {
-      savesurname(userText);
+      saveSurname(userText);
       notifyListeners();
     }
   }
 
+  void setGender(int gender){
+    if (gender!=1 || gender!=0) {
+    } else {
+      saveGender(gender);
+      notifyListeners();
+    }
+  }
   void setSkip(String skipText) {
     if (skipText.isEmpty) {
     } else {

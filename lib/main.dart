@@ -23,13 +23,12 @@ void main() async {
       create: (BuildContext context) => TodosProvider(),
       child: EasyLocalization(
         path: 'lib/langs',
-        supportedLocales: [
+        supportedLocales: const [
           Locale('en'),
           Locale('zh'),
-          Locale('tr'),
         ],
-        assetLoader: CodegenLoader(),
-        fallbackLocale: Locale('en'),
+        assetLoader: const CodegenLoader(),
+        fallbackLocale: const Locale('en'),
         child: MyApp(
           skipToNext: skipToNext.toString(),
         ),
@@ -53,12 +52,10 @@ class MyApp extends StatelessWidget {
         primaryColor: HexColor('#f9f6e8'),
       ),
       localizationsDelegates: context.localizationDelegates,
-      routes: {
-        '/MainScreen':(context) => MainScreen()
-      },
+      routes: {'/MainScreen': (context) => const MainScreen()},
       home: skipToNext.toString().contains('null')
           ? const WelcomeScreen()
-            : const LifeExamPage(),
+          : const LifeExamPage(),
     );
   }
 }

@@ -14,8 +14,8 @@
 	<string>6.0</string>
 	<key>CFBundleLocalizations</key>
 	<array>
+		<string>zh</string>
 		<string>en</string>
-		<string>tr</string>
 	</array>
 	<key>CFBundleName</key>
 	<string>todo_app</string>

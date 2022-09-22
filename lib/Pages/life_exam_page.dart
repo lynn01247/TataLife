@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:todo_app/Models/GlobalValue.dart';
+import 'package:todo_app/Models/global_value.dart';
 import 'package:todo_app/provider/todos_provider.dart';
 
 class LifeExamPage extends StatefulWidget {
@@ -33,17 +33,27 @@ class _LifeExamPageState extends State<LifeExamPage> {
   Widget build(BuildContext context) {
     // debugPaintSizeEnabled = true ;// 显示边界布局
     mContext = context;
+    return _examMainView(0);
+  }
+
+  Widget _examMainView(int value){
     return Scaffold(
         appBar: AppBar(
-          title: const Text("答题测试"),
+          title: Text("答题测试"),
+          // title: Text("答题测试 " + Global.itemChoiceList.length.toString() + "/" + Global.examList.length.toString()),
           actions: <Widget>[
             IconButton(icon: const Icon(Icons.account_balance), onPressed: () {
-              Global.itemChoiceList.clear();
-              finishExam();
+              _onTapShowDialog(context, "温馨提示", "你还未答完全部题目，是否确定要跳过此次答题，直接进入主页吗？", OnDialogClickListener(
+                  onConfirm: (){
+                    Global.itemChoiceList.clear();
+                    finishExam();
+                  },
+                  onCancel: (){}
+              ));
             }),
           ],
         ),
-        body: _buildCustomScrollView(0));
+        body: _buildCustomScrollView(value));
   }
 
   CustomScrollView _buildCustomScrollView(int i) {
@@ -87,7 +97,7 @@ class _LifeExamPageState extends State<LifeExamPage> {
           (i >= 1 && i <= 3)
               ? ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(mContext).pop();
                   },
                   child: const Text('上一页'),
                 )
@@ -100,7 +110,7 @@ class _LifeExamPageState extends State<LifeExamPage> {
                   onPressed: () {
                     isAllChecked(i)
                         ? Navigator.push(
-                            context,
+                            mContext,
                             PageRouteBuilder(
                                 transitionDuration:
                                     const Duration(milliseconds: 500),
@@ -110,17 +120,7 @@ class _LifeExamPageState extends State<LifeExamPage> {
                                     Animation secondaryAnimation) {
                                   return FadeTransition(
                                     opacity: animation,
-                                    child: Scaffold(
-                                        appBar: AppBar(
-                                          title: const Text("答题测试"),
-                                          actions: <Widget>[
-                                            IconButton(icon: const Icon(Icons.account_balance), onPressed: () {
-                                              Global.itemChoiceList.clear();
-                                              finishExam();
-                                            }),
-                                          ],
-                                        ),
-                                        body: _buildCustomScrollView(i + 1)),
+                                    child: _examMainView(i + 1),
                                   );
                                 }))
                         : Fluttertoast.showToast(msg: examWarning);
@@ -145,7 +145,7 @@ class _LifeExamPageState extends State<LifeExamPage> {
   }
 
   isAllChecked(int i) {
-    if (Global.itemChoiceList.length != (i + 1) * 10) {
+    if (Global.itemChoiceList.length == (i + 1) * 10) {
       return true;
     } else {
       for (int j = 0; j < (i + 1) * 10; j++) {
@@ -207,6 +207,39 @@ class ItemChoice extends StatefulWidget {
   State<StatefulWidget> createState() =>
       _ItemChoiceState(index, yesItem, noItem);
 }
+
+_onTapShowDialog(BuildContext context, String title, String msg, OnDialogClickListener listener) {
+  showDialog(context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(msg),
+          actions: [
+            ElevatedButton(onPressed: () {
+              Navigator.of(context).pop(false);
+              listener.onCancel();
+            }, child: const Text('取消')),
+            ElevatedButton(onPressed: () {
+              Navigator.of(context).pop(true);
+              listener.onConfirm();
+            }, child: const Text('确认')),
+          ],
+        );
+      });
+}
+
+typedef OnConfirm = void Function();
+typedef OnCancel = void Function();
+
+class OnDialogClickListener {
+  OnConfirm onConfirm;
+  OnCancel onCancel;
+  OnDialogClickListener ({required this.onConfirm,  required this.onCancel});
+}
+
+typedef OnSuccess = void Function(Object o);
+typedef OnError = void Function(Exception e);
 
 ///封装的选项选择控件-state
 class _ItemChoiceState extends State<ItemChoice> {

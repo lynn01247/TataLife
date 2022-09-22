@@ -10,19 +10,21 @@ class WelcomCustomTF extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 2.0, right: 2.0, top: 20.0),
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 5.0),
       child: TextFormField(
         maxLength: 15,
+        style: TextStyle(fontSize: 13),
         controller: controller,
         validator: (value) {
           if (value!.isEmpty) {
-            return 'Please enter $labelText';
+            return '请输入 $labelText';
           }
+          return null;
         },
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(5.0),
           ),
           fillColor: Colors.amber.shade50,
           filled: true,
