@@ -117,8 +117,8 @@ class TodosProvider extends ChangeNotifier {
   }
 
   void saveDataToLocalStorage() {
-    List<String>? spList =
-        todos.map((todo) => json.encode(todo.toJson())).toList();
+    List<String>? spList = todos.map((todo) => json.encode(todo.toJson())).toList();
+    sharedPreferences ??= SharedPreferencesHelper.instance;
     sharedPreferences!.setStringList('list', spList);
   }
 
@@ -132,30 +132,36 @@ class TodosProvider extends ChangeNotifier {
   void updateDataToLocalStorage() {
     List<String>? spList =
         todos.map((item) => json.encode(item.toJson())).toList();
+    sharedPreferences ??= SharedPreferencesHelper.instance;
     sharedPreferences?.remove('list');
     sharedPreferences!.setStringList('list', spList);
   }
 
   void saveName(String userText) {
     _name = userText;
+    sharedPreferences ??= SharedPreferencesHelper.instance;
     sharedPreferences!.setString('userName', userText);
     notifyListeners();
   }
 
   void saveSurname(String userText) {
     _surname = userText;
+    sharedPreferences ??= SharedPreferencesHelper.instance;
     sharedPreferences!.setString('userSurname', userText);
     notifyListeners();
   }
 
   void saveGender(int gender){
     _gender = gender;
+    print("saveGender" + gender.toString());
+    sharedPreferences ??= SharedPreferencesHelper.instance;
     sharedPreferences!.setInt('gender', gender);
     notifyListeners();
   }
 
   void saveSkip(String skipText) {
     _skip = skip;
+    sharedPreferences ??= SharedPreferencesHelper.instance;
     sharedPreferences!.setString('skip', skipText);
     notifyListeners();
   }
@@ -211,8 +217,7 @@ class TodosProvider extends ChangeNotifier {
   }
 
   void setGender(int gender){
-    if (gender!=1 || gender!=0) {
-    } else {
+    if (gender==1 || gender==0) {
       saveGender(gender);
       notifyListeners();
     }
@@ -225,31 +230,52 @@ class TodosProvider extends ChangeNotifier {
     }
   }
 
-  String? getName() {
+  String getName() {
+    sharedPreferences ??= SharedPreferencesHelper.instance;
     String? spName = sharedPreferences?.getString('userName');
     if (spName != null) {
       _name = spName;
       notifyListeners();
       return spName;
     } else {
-      return null;
+      return "";
     }
   }
 
-  void getSurname() {
+  String getSurname() {
+    sharedPreferences ??= SharedPreferencesHelper.instance;
     String? spName = sharedPreferences!.getString('userSurname');
     if (spName != null) {
       _surname = spName;
       notifyListeners();
-    } else {}
+      return spName;
+    } else {
+      return "";
+    }
   }
 
-  void getSkipName() {
+  int getGender(){
+    sharedPreferences ??= SharedPreferencesHelper.instance;
+    int? gender = sharedPreferences!.getInt('gender');
+    print("saveGender" + gender.toString());
+    if (gender != null) {
+      _gender = gender;
+      notifyListeners();
+      return gender;
+    } else {
+      return -1;
+    }
+  }
+  String getSkipName() {
+    sharedPreferences ??= SharedPreferencesHelper.instance;
     String? spName = sharedPreferences!.getString('skip');
     if (spName != null) {
       _skip = spName;
       notifyListeners();
-    } else {}
+      return spName;
+    } else {
+      return "";
+    }
   }
 
   // Check Name
@@ -282,11 +308,13 @@ class TodosProvider extends ChangeNotifier {
   }
 
   void imageToBase64(Uint8List imageBytes) {
+    sharedPreferences ??= SharedPreferencesHelper.instance;
     sharedPreferences!.setString(imageKey, base64.encode(imageBytes));
     notifyListeners();
   }
 
   Uint8List? base64ToImage() {
+    sharedPreferences ??= SharedPreferencesHelper.instance;
     var data = sharedPreferences!.getString(imageKey);
     data == null ? null : profileImage = base64.decode(data);
     return profileImage;

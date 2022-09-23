@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/Models/global_value.dart';
 import 'package:todo_app/provider/todos_provider.dart';
 
@@ -17,6 +18,11 @@ class _LifeExamPageState extends State<LifeExamPage> {
   @override
   void initState() {
     super.initState();
+    // Provider.of<TodosProvider>(context, listen: false).initSharedPreferences();
+    // var name = TodosProvider().getName();
+    // var surName = TodosProvider().getSurname();
+    // var gender = TodosProvider().getGender();
+    // print("LifeExamPageState name: "+ name + ",surName: " + surName+ ",gender: " + gender.toString());
     if (TodosProvider().getExam("all") == "") {
       Global.itemChoiceList.clear();
     }
