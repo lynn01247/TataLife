@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/Models/global_value.dart';
 import 'package:todo_app/Pages/life_exam_page.dart';
 import 'package:todo_app/Pages/main_screen.dart';
 import 'package:todo_app/Pages/welcome_screen.dart';
@@ -13,7 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   TodosProvider().initSharedPreferences();
-  var skipToNext = await TodosProvider().readName('skip');
+  var skipToNext = await TodosProvider().readName('userName');
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -53,9 +54,8 @@ class MyApp extends StatelessWidget {
       ),
       localizationsDelegates: context.localizationDelegates,
       routes: {'/MainScreen': (context) => const MainScreen()},
-      home: skipToNext.toString().contains('null')
-          ? const WelcomeScreen()
-          : const LifeExamPage(),
+      home: skipToNext.toString().contains('null') ? const WelcomeScreen() :
+      (TodosProvider().getScore() == Global.defaultScore) ? const LifeExamPage() : const MainScreen(),
     );
   }
 }

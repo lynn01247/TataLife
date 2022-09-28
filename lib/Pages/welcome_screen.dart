@@ -18,14 +18,12 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   // ignore: prefer_typing_uninitialized_variables
-  late var isSkip;
 
   @override
   void initState() {
     super.initState();
     Provider.of<TodosProvider>(context, listen: false).initSharedPreferences();
     Global.examList.shuffle(); // 随机排列试卷
-    isSkip = TodosProvider().readName('skip');
   }
 
   @override
@@ -118,7 +116,7 @@ class _BaseInfoDialogState extends State<BaseInfoDialog> {
   String content = "";
   OnDialogClickListener? clickListener;
 
-  int sex = 1;
+  int sex = 1; // 1: 男, 0: 女
   var formKey = GlobalKey<FormState>();
   var nameController = TextEditingController(text: TodosProvider().getName());
   var surnameController = TextEditingController(text: TodosProvider().getSurname());
@@ -154,14 +152,6 @@ class _BaseInfoDialogState extends State<BaseInfoDialog> {
                         child: Text(content, textAlign: TextAlign.left, style: const TextStyle(fontSize: 15),),
                       ),
                       Form(
-                        // autovalidateMode: AutovalidateMode.always,
-                        // onChanged: () {
-                        //   Form.of(primaryFocus!.context!)!.save();
-                        //   // TodosProvider().setName(nameController.text);
-                        //   // TodosProvider().setSurName(surnameController.text);
-                        //   state.setName(nameController.text);
-                        //   state.setSurName(surnameController.text);
-                        // },
                         key: formKey,
                         child: Padding(
                           padding: const EdgeInsets.all(5),
@@ -222,7 +212,6 @@ class _BaseInfoDialogState extends State<BaseInfoDialog> {
                                       state.setName(nameController.text);
                                       state.setSurName(surnameController.text);
                                       state.setGender(sex);
-                                      state.setSkip("no");
                                       clickListener?.onConfirm();
                                       Navigator.of(context).pop();
                                       Navigator.pushReplacement(

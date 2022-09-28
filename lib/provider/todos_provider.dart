@@ -6,15 +6,16 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_app/Models/global_value.dart';
 import 'package:todo_app/Models/todo.dart';
 import 'package:todo_app/provider/shared_prefences_helper.dart';
 
 class TodosProvider extends ChangeNotifier {
   SharedPreferences? sharedPreferences;
   String _name = '';
-  String _skip = '';
   String _surname = '';
   num _gender = -1;
+  double _score = Global.defaultScore;
   String imageKey = "IMAGE_KEY";
   Uint8List? imagebytes;
   Uint8List? profileImage;
@@ -41,7 +42,8 @@ class TodosProvider extends ChangeNotifier {
   //  getter
   String get name => _name;
   String get surname => _surname;
-  String get skip => _skip;
+  num get gender => _gender;
+  double get score => _score;
   UnmodifiableListView<Todo> get allTodos =>
       UnmodifiableListView(todos.reversed);
 
@@ -153,33 +155,16 @@ class TodosProvider extends ChangeNotifier {
 
   void saveGender(int gender){
     _gender = gender;
-    print("saveGender" + gender.toString());
     sharedPreferences ??= SharedPreferencesHelper.instance;
     sharedPreferences!.setInt('gender', gender);
     notifyListeners();
   }
 
-  void saveSkip(String skipText) {
-    _skip = skip;
+  void saveScore(double score){
+    _score = score;
     sharedPreferences ??= SharedPreferencesHelper.instance;
-    sharedPreferences!.setString('skip', skipText);
+    sharedPreferences!.setDouble('score', score);
     notifyListeners();
-  }
-
-  void saveExam(String key, String value) {
-    sharedPreferences ??= SharedPreferencesHelper.instance;
-    sharedPreferences!.setString(key, value);
-    notifyListeners();
-  }
-
-  String getExam(String key) {
-    sharedPreferences ??= SharedPreferencesHelper.instance;
-    String? spName = sharedPreferences?.getString(key);
-    if (spName != null) {
-      return spName;
-    } else {
-      return "";
-    }
   }
 
   // To-do Percent Method
@@ -222,13 +207,6 @@ class TodosProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-  void setSkip(String skipText) {
-    if (skipText.isEmpty) {
-    } else {
-      saveSkip(skipText);
-      notifyListeners();
-    }
-  }
 
   String getName() {
     sharedPreferences ??= SharedPreferencesHelper.instance;
@@ -257,7 +235,6 @@ class TodosProvider extends ChangeNotifier {
   int getGender(){
     sharedPreferences ??= SharedPreferencesHelper.instance;
     int? gender = sharedPreferences!.getInt('gender');
-    print("saveGender" + gender.toString());
     if (gender != null) {
       _gender = gender;
       notifyListeners();
@@ -266,15 +243,16 @@ class TodosProvider extends ChangeNotifier {
       return -1;
     }
   }
-  String getSkipName() {
+
+  double getScore(){
     sharedPreferences ??= SharedPreferencesHelper.instance;
-    String? spName = sharedPreferences!.getString('skip');
-    if (spName != null) {
-      _skip = spName;
+    double? score = sharedPreferences!.getDouble('score');
+    if (score != null) {
+      _score = score;
       notifyListeners();
-      return spName;
+      return score;
     } else {
-      return "";
+      return -999;
     }
   }
 

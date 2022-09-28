@@ -88,7 +88,7 @@ static const Map<String,dynamic> en = {
       "goodjob_text": "做得不错 {}!",
       "goodjob_subtitle_text": "你的生活与工作达到了很好平衡",
       "taskstitle": "你的任务",
-      "taskssubtitle": "你还有 {} 任务用于 {}"
+      "taskssubtitle": "在 {} 你还有任务数：{}"
     },
     "dashboard": {
       "tasktitle": "你的任务",

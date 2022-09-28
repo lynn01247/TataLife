@@ -18,13 +18,16 @@ class _LifeExamPageState extends State<LifeExamPage> {
   @override
   void initState() {
     super.initState();
-    // Provider.of<TodosProvider>(context, listen: false).initSharedPreferences();
+    Provider.of<TodosProvider>(context, listen: false).initSharedPreferences();
     // var name = TodosProvider().getName();
+    // var score = TodosProvider().getScore();
+    // print("main_screen " + score.toString());
     // var surName = TodosProvider().getSurname();
     // var gender = TodosProvider().getGender();
     // print("LifeExamPageState name: "+ name + ",surName: " + surName+ ",gender: " + gender.toString());
-    if (TodosProvider().getExam("all") == "") {
+    if (TodosProvider().getScore() == Global.defaultScore) {
       Global.itemChoiceList.clear();
+      Global.itemChoiceScoreList.clear();
     }
     _scrollController = ScrollController()..addListener(() {});
   }
@@ -45,13 +48,14 @@ class _LifeExamPageState extends State<LifeExamPage> {
   Widget _examMainView(int value){
     return Scaffold(
         appBar: AppBar(
-          title: Text("答题测试"),
+          title: const Text("答题测试"),
           // title: Text("答题测试 " + Global.itemChoiceList.length.toString() + "/" + Global.examList.length.toString()),
           actions: <Widget>[
             IconButton(icon: const Icon(Icons.account_balance), onPressed: () {
               _onTapShowDialog(context, "温馨提示", "你还未答完全部题目，是否确定要跳过此次答题，直接进入主页吗？", OnDialogClickListener(
                   onConfirm: (){
                     Global.itemChoiceList.clear();
+                    Global.itemChoiceScoreList.clear();
                     finishExam();
                   },
                   onCancel: (){}
@@ -100,51 +104,31 @@ class _LifeExamPageState extends State<LifeExamPage> {
         _examContent(i * 10 + 9, Global.examList[i * 10 + 8], mContext),
         _examContent(i * 10 + 10, Global.examList[i * 10 + 9], mContext),
         Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-          (i >= 1 && i <= 3)
-              ? ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(mContext).pop();
-                  },
-                  child: const Text('上一页'),
-                )
-              : const SizedBox(),
-          const SizedBox(
-            width: 10,
-          ),
-          (i >= 0 && i <= 2)
-              ? ElevatedButton(
-                  onPressed: () {
-                    isAllChecked(i)
-                        ? Navigator.push(
-                            mContext,
-                            PageRouteBuilder(
-                                transitionDuration:
-                                    const Duration(milliseconds: 500),
-                                //动画执行时间为500毫秒
-                                pageBuilder: (BuildContext context,
-                                    Animation<double> animation,
-                                    Animation secondaryAnimation) {
-                                  return FadeTransition(
-                                    opacity: animation,
-                                    child: _examMainView(i + 1),
-                                  );
-                                }))
-                        : Fluttertoast.showToast(msg: examWarning);
-                  },
-                  child: const Text('下一页'),
-                )
-              : ((i == 3) ?
+          (i >= 1 && i <= 3) ? ElevatedButton(onPressed: () {Navigator.of(mContext).pop();}, child: const Text('上一页'),) : const SizedBox(),
+          const SizedBox(width: 10,),
+          (i >= 0 && i <= 2) ? ElevatedButton(
+            onPressed: () {
+              isAllChecked(i) ? Navigator.push(mContext,
+                  PageRouteBuilder(
+                        transitionDuration: const Duration(milliseconds: 500),
+                        //动画执行时间为500毫秒
+                        pageBuilder: (BuildContext context, Animation<double> animation, Animation secondaryAnimation) {
+                          return FadeTransition(opacity: animation, child: _examMainView(i + 1),);
+                        })) : Fluttertoast.showToast(msg: examWarning);
+            },
+            child: const Text('下一页'),) : ((i == 3) ?
           ElevatedButton(
             onPressed: () {
-              isAllChecked(i)
-                  ? finishExam()
-                  : Fluttertoast.showToast(msg: examWarning);
+              double score = TodosProvider().getGender() == 1 ? 86 : 89;  // 本计算方法的基础是：男性的预期寿命设定为86岁，女性则为89岁
+              for(double i in Global.itemChoiceScoreList){
+                  score = score + i;
+              }
+              TodosProvider().saveScore(score);
+              isAllChecked(i) ? finishExam() : Fluttertoast.showToast(msg: examWarning);
             },
             child: const Text('完成'),
           ): const SizedBox()),
-          const SizedBox(
-            width: 10,
-          )
+          const SizedBox(width: 10,)
         ])
       ],
     );
@@ -156,8 +140,7 @@ class _LifeExamPageState extends State<LifeExamPage> {
     } else {
       for (int j = 0; j < (i + 1) * 10; j++) {
         int v = j + 1;
-        if (!Global.itemChoiceList.contains("$v") &&
-            !Global.itemChoiceList.contains("-$v")) {
+        if (!Global.itemChoiceList.contains("$v") && !Global.itemChoiceList.contains("-$v")) {
           examWarning = "第$v道题还未选择哦 ^_ ^";
           break;
         }
@@ -168,11 +151,6 @@ class _LifeExamPageState extends State<LifeExamPage> {
 
   finishExam() {
     Navigator.of(context).popAndPushNamed('/MainScreen');
-    // Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) =>
-    //         const MainScreen()));
   }
 }
 
@@ -185,11 +163,7 @@ SizedBox _examContent(int index, String content, BuildContext mContext) {
       margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 2),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(
-          "$index、" + content.split("。")[0],
-          softWrap: true,
-          style: const TextStyle(fontSize: 16, color: Colors.black),
-        ),
+        Text("$index、" + content.split("。")[0], softWrap: true, style: const TextStyle(fontSize: 16, color: Colors.black),),
         const SizedBox(height: 35),
         ItemChoice(index, content.split("。")[1], content.split("。")[2]),
       ]),
@@ -268,21 +242,17 @@ class _ItemChoiceState extends State<ItemChoice> {
       RawChip(
         padding: const EdgeInsets.fromLTRB(15, 1, 15, 1),
         // checkmarkColor: Colors.red,
-        label: Text(_yesItem,
-            style: const TextStyle(fontSize: 13, color: Colors.black)),
+        label: Text(_yesItem.split("！")[0], style: const TextStyle(fontSize: 13, color: Colors.black)),
         selected: _yesValue,
         onSelected: (v) {
-          v
-              ? Global.itemChoiceList.add(_itemIndex.toString())
-              : Global.itemChoiceList.remove(_itemIndex.toString());
+          v ? Global.itemChoiceList.add(_itemIndex.toString()) : Global.itemChoiceList.remove(_itemIndex.toString());
+          v ? Global.itemChoiceScoreList.add(double.parse(_yesItem.split("！")[1])) : Global.itemChoiceScoreList.remove(double.parse(_yesItem.split("！")[1]));
           setState(() {
             if (v) {
               _noValue = !v;
             } else {}
             _yesValue = v;
           });
-          // TodosProvider().saveExam("item", v?"0":"");
-          // Fluttertoast.showToast(msg: _itemIndex.toString() + "," + Global.itemChoiceList.length.toString());
         },
         selectedColor: Colors.lightBlue,
         selectedShadowColor: Colors.red,
@@ -293,13 +263,11 @@ class _ItemChoiceState extends State<ItemChoice> {
       const SizedBox(width: 10),
       RawChip(
         padding: const EdgeInsets.fromLTRB(15, 1, 15, 1),
-        label: Text(_noItem,
-            style: const TextStyle(fontSize: 13, color: Colors.black)),
+        label: Text(_noItem.split("！")[0], style: const TextStyle(fontSize: 13, color: Colors.black)),
         selected: _noValue,
         onSelected: (v) {
-          v
-              ? Global.itemChoiceList.add("-$_itemIndex")
-              : Global.itemChoiceList.remove("-$_itemIndex");
+          v ? Global.itemChoiceList.add("-$_itemIndex") : Global.itemChoiceList.remove("-$_itemIndex");
+          v ? Global.itemChoiceScoreList.add(double.parse(_noItem.split("！")[1])) : Global.itemChoiceScoreList.remove(double.parse(_noItem.split("！")[1]));
           setState(() {
             if (v) {
               _yesValue = !v;

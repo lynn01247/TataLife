@@ -30,20 +30,20 @@ class _Task_InfoState extends State<TaskInfo> {
       'November',
       'December',
     ];
-    List monthsTRNames = [
+    List monthsZHNames = [
       '0 index data',
-      'Ocak',
-      'Şubat',
-      'Mart',
-      'Nisan',
-      'Mayıs',
-      'Haziran',
-      'Temmuz',
-      'Ağustos',
-      'Eylül',
-      'Ekim',
-      'Kasım',
-      'Aralık',
+      '一月',
+      '二月',
+      '三月',
+      '四月',
+      '五月',
+      '六月',
+      '七月',
+      '八月',
+      '九月',
+      '十月',
+      '十一月',
+      '十二月',
     ];
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 20, top: 15),
@@ -82,7 +82,7 @@ class _Task_InfoState extends State<TaskInfo> {
                                 '${DateTime.now().day.toString().padLeft(2, '0')} ${monthsENNames[DateTime.now().month]}'
                               ])
                             : LocaleKeys.homescreen_taskssubtitle.tr(args: [
-                                '${DateTime.now().day.toString().padLeft(2, '0')} ${monthsTRNames[DateTime.now().month]}',
+                                '${DateTime.now().day.toString().padLeft(2, '0')} ${monthsZHNames[DateTime.now().month]}',
                                 '${state.unCompletedTodos.where((Todo) {
                                   return DateTime.fromMillisecondsSinceEpoch(
                                                   Todo.dateMilliseconds)
