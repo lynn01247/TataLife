@@ -49,6 +49,10 @@ dependencies:
   flutter_screenutil: ^5.3.1
   flutter_svg: ^1.0.3
   responsive_framework: ^0.1.7
+  ele_theme: ^0.0.1
+  ele_progress: ^0.0.1
+  sleek_circular_slider: ^2.0.1
+  typewritertext: ^1.8.0
   image_picker: ^0.8.4+11
   adaptive_dialog: ^1.4.0
   easy_localization: ^3.0.0

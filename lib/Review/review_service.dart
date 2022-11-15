@@ -53,7 +53,7 @@ class ReviewService {
         _inAppReview.requestReview();
       } else {
         _inAppReview.openStoreListing(
-          appStoreId: 'com.yagizdokumaci.todomoon',
+          appStoreId: 'com.tatait.tatalife',
         );
       }
       return true;

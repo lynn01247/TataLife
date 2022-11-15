@@ -10,6 +10,7 @@ import 'package:todo_app/Pages/welcome_screen.dart';
 import 'package:todo_app/provider/todos_provider.dart';
 import 'package:todo_app/translations/codegen_loader.g.dart';
 
+/// 1.主要路由 -- 欢迎界面【skipToNext？】/答题界面【defaultScore？】/HOME界面【MainScreen】
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("width" + MediaQuery.of(context).size.width.toString());
+    print("height" + MediaQuery.of(context).size.height.toString());
+    print("now Score is" + TodosProvider().getScore().toString());
     return MaterialApp(
       title: 'Tata Life',
       debugShowCheckedModeBanner: false,

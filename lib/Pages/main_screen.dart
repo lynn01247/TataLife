@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/Models/global_value.dart';
 import 'package:todo_app/Pages/profile_page.dart';
 import 'package:todo_app/provider/todos_provider.dart';
 
@@ -39,23 +40,17 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     Provider.of<TodosProvider>(context, listen: false).initSharedPreferences();
-    badgeValue = Provider.of<TodosProvider>(context, listen: false)
-        .unCompletedTodos
-        .where((Todo) {
-      return DateTime.fromMillisecondsSinceEpoch(Todo.dateMilliseconds).day ==
-              DateTime.now().day &&
-          DateTime.fromMillisecondsSinceEpoch(Todo.dateMilliseconds).month ==
-              DateTime.now().month &&
-          DateTime.fromMillisecondsSinceEpoch(Todo.dateMilliseconds).year ==
-              DateTime.now().year;
+    Global.dayWordList.shuffle(); // 随机排列每日金句
+    badgeValue = Provider.of<TodosProvider>(context, listen: false).unCompletedTodos.where((Todo) {
+      return DateTime.fromMillisecondsSinceEpoch(Todo.dateMilliseconds).day == DateTime.now().day &&
+          DateTime.fromMillisecondsSinceEpoch(Todo.dateMilliseconds).month == DateTime.now().month &&
+          DateTime.fromMillisecondsSinceEpoch(Todo.dateMilliseconds).year == DateTime.now().year;
     }).length;
 
     // App Review
     Timer(const Duration(seconds: 2), () {
       _reviewService.isSecondTimeOpen().then((secondOpen) {
-        if (secondOpen) {
-          _reviewService.showRating();
-        }
+        if (secondOpen) {_reviewService.showRating();}
       });
     });
   }
@@ -68,67 +63,32 @@ class _MainScreenState extends State<MainScreen> {
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         backgroundColor: HexColor('#f3f0e5'),
-        body: PageStorage(
-          child: currentScreen,
-          bucket: bucket,
-        ),
+        body: PageStorage(child: currentScreen, bucket: bucket,),
         floatingActionButton: SizedBox(
           height: 50,
           child: FloatingActionButton(
             backgroundColor: HexColor('#000000'),
             child: const Icon(Icons.add),
             onPressed: () {
-              setState(() {
-                showCupertinoModalBottomSheet(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100.0),
-                  ),
+              setState(() {showCupertinoModalBottomSheet(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.0),),
                   context: context,
                   builder: (context) => SizedBox(
                       height:
                           // for iphone 11
-                          constraints.maxHeight == 896 ||
-                                  constraints.maxHeight == 926
-                              ? MediaQuery.of(context).size.height / 1.45
-                              :
+                          constraints.maxHeight == 896 || constraints.maxHeight == 926 ? MediaQuery.of(context).size.height / 1.45 :
                               // For iphone 11 pro, 12 mini, 12 pro
-                              constraints.maxHeight == 812
-                                  ? MediaQuery.of(context).size.height / 1.35
-                                  :
+                              constraints.maxHeight == 812 ? MediaQuery.of(context).size.height / 1.35 :
                                   // for iphone 12
-                                  constraints.maxHeight == 844
-                                      ? MediaQuery.of(context).size.height / 1.4
-                                      :
+                                  constraints.maxHeight == 844 ? MediaQuery.of(context).size.height / 1.4 :
                                       // for iphone 8 plus
-                                      constraints.maxHeight == 736
-                                          ? MediaQuery.of(context).size.height /
-                                              1.3
-                                          :
+                                      constraints.maxHeight == 736 ? MediaQuery.of(context).size.height / 1.3 :
                                           // for iphone 7
-                                          constraints.maxHeight == 667
-                                              ? MediaQuery.of(context)
-                                                      .size
-                                                      .height /
-                                                  1.22
-                                              :
+                                          constraints.maxHeight == 667 ? MediaQuery.of(context).size.height / 1.22 :
                                               // for iphone 5S and iPhone SE 1. Gen
-                                              constraints.maxHeight == 568
-                                                  ? MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      1.1
-                                                  :
+                                              constraints.maxHeight == 568 ? MediaQuery.of(context).size.height / 1.1 :
                                                   // For Pixel 2 - height 683.4285714285714
-                                                  constraints.maxHeight ==
-                                                          683.4285714285714
-                                                      ? MediaQuery.of(context)
-                                                              .size
-                                                              .height /
-                                                          1.2
-                                                      : MediaQuery.of(context)
-                                                              .size
-                                                              .height /
-                                                          1.4,
+                                                  constraints.maxHeight == 683.4285714285714 ? MediaQuery.of(context).size.height / 1.2 : MediaQuery.of(context).size.height / 1.4,
                       child: const AddTodo()),
                 );
                 currentTab = 5;
@@ -148,41 +108,20 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     MaterialButton(
                       minWidth: 40,
-                      onPressed: () {
-                        setState(() {
-                          currentScreen = const HomePage();
-                          currentTab = 0;
-                        });
-                      },
+                      onPressed: () {setState(() {currentScreen = const HomePage();currentTab = 0;});},
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.home,
-                            color: currentTab == 0 ? Colors.black : Colors.grey,
-                          )
-                        ],
+                        children: [FaIcon(FontAwesomeIcons.home, color: currentTab == 0 ? Colors.black : Colors.grey,)],
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: MaterialButton(
                         minWidth: 40,
-                        onPressed: () {
-                          setState(() {
-                            currentScreen = const CalendarPage();
-                            currentTab = 1;
-                          });
-                        },
+                        onPressed: () {setState(() {currentScreen = const CalendarPage();currentTab = 1;});},
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.calendar,
-                              color:
-                                  currentTab == 1 ? Colors.black : Colors.grey,
-                            ),
-                          ],
+                          children: [FaIcon(FontAwesomeIcons.calendar, color: currentTab == 1 ? Colors.black : Colors.grey,),],
                         ),
                       ),
                     ),
@@ -194,41 +133,20 @@ class _MainScreenState extends State<MainScreen> {
                   children: [
                     MaterialButton(
                       minWidth: 40,
-                      onPressed: () {
-                        setState(() {
-                          currentScreen = const DashboardPage();
-                          currentTab = 3;
-                        });
-                      },
+                      onPressed: () {setState(() {currentScreen = const DashboardPage();currentTab = 3;});},
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.clipboardCheck,
-                            color: currentTab == 3 ? Colors.black : Colors.grey,
-                          )
-                        ],
+                        children: [FaIcon(FontAwesomeIcons.clipboardCheck, color: currentTab == 3 ? Colors.black : Colors.grey,)],
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 25.0),
                       child: MaterialButton(
                         minWidth: 40,
-                        onPressed: () {
-                          setState(() {
-                            currentScreen = const ProfilePage();
-                            currentTab = 4;
-                          });
-                        },
+                        onPressed: () {setState(() {currentScreen = const ProfilePage();currentTab = 4;});},
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.user,
-                              color:
-                                  currentTab == 4 ? Colors.black : Colors.grey,
-                            ),
-                          ],
+                          children: [FaIcon(FontAwesomeIcons.user, color: currentTab == 4 ? Colors.black : Colors.grey,),],
                         ),
                       ),
                     ),
