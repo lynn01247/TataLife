@@ -7,11 +7,12 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:ele_progress/ele_progress.dart';
 import 'package:todo_app/Widgets/HomePage/Grettings/CustomCircleProgress.dart';
 
+double maxWidth = 0.0;
 double maxHeight = 0.0;
-
 class Clock extends StatefulWidget {
-  Clock(double height, {Key? key}) : super(key: key) {
-    maxHeight = height;
+  Clock(double width, {Key? key}) : super(key: key) {
+    maxWidth = width;
+    maxHeight = width / 2;
   }
 
   _ClockState createState() => _ClockState();
@@ -42,24 +43,7 @@ class _ClockState extends State<Clock> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body:
-            // Container(
-            //   decoration: BoxDecoration(
-            //       gradient: LinearGradient(
-            //           colors: [HexColor('#f9f6e8'), HexColor('#f9f6e8')],
-            //           begin: Alignment.bottomLeft,
-            //           end: Alignment.topRight,
-            //           tileMode: TileMode.clamp)),
-            //   child: SafeArea(
-            //     child: Center(
-            //         child: ClockWidget(
-            //       dateTime: dateTime,
-            //     )),
-            //   ),
-            // ),
-            Container(color: Colors.green,
-            child: Center(child: ClockWidget(dateTime: dateTime,))));
+    return Scaffold(body: Container(color: HexColor('#f9f6e8'), child: Center(child: ClockWidget(dateTime: dateTime,))));
   }
 }
 
@@ -75,19 +59,21 @@ class ClockWidget extends StatelessWidget {
     var hours = dateTime.hour.toDouble();
     var months = dateTime.month.toDouble();
     var years = dateTime.year.toDouble();
-    return CustomCircleProgress(maxHeight);
-    return Container(
-        height: 100.0, // 180.0
-        width: 200.0, color: HexColor('#f9f6e8'),
-        child:
-          EProgress(
-          type: ProgressType.liquid,
-          progress: 80,
-          radius: 30,
-          backgroundColor: Colors.grey,
-          colors: [Colors.redAccent,],
-        ),
-      );
+    // return CustomCircleProgress(maxWidth, 0.8);
+      // Padding(padding: const EdgeInsets.all(10.0),
+      // child: CustomCircleProgress(maxWidth, 0.8)); // maxProgress不能大于1
+    // return Container(
+    //     height: 100.0, // 180.0
+    //     width: 200.0, color: HexColor('#f9f6e8'),
+    //     child:
+    //       EProgress(
+    //       type: ProgressType.liquid,
+    //       progress: 80,
+    //       radius: 30,
+    //       backgroundColor: Colors.grey,
+    //       colors: [Colors.redAccent,],
+    //     ),
+    //   );
     return SleekCircularSlider(// 秒针的圆环
       appearance: secAppearance,
       min: 0, max: 59, initialValue: seconds,

@@ -45,8 +45,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("width" + MediaQuery.of(context).size.width.toString());
-    print("height" + MediaQuery.of(context).size.height.toString());
     print("now Score is" + TodosProvider().getScore().toString());
     return MaterialApp(
       title: 'Tata Life',
