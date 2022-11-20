@@ -7,6 +7,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/Models/global_value.dart';
 import 'package:todo_app/Pages/profile_page.dart';
+import 'package:todo_app/Widgets/HomePage/Grettings/timeline.dart';
 import 'package:todo_app/provider/todos_provider.dart';
 
 import '../Review/review_service.dart';
@@ -27,6 +28,7 @@ class _MainScreenState extends State<MainScreen> {
   int currentTab = 0;
   var pageList = [
     const HomePage(),
+    // const TimelineStatusPage(),
     const CalendarPage(),
     const AddTodo(),
     const DashboardPage(),

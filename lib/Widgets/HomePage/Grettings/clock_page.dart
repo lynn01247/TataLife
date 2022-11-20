@@ -43,7 +43,13 @@ class _ClockState extends State<Clock> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Container(color: HexColor('#f9f6e8'), child: Center(child: ClockWidget(dateTime: dateTime,))));
+    return Scaffold(
+        body: Container(
+            color: Colors.transparent,
+            child: Center(
+                child: ClockWidget(
+              dateTime: dateTime,
+            ))));
   }
 }
 
@@ -59,9 +65,6 @@ class ClockWidget extends StatelessWidget {
     var hours = dateTime.hour.toDouble();
     var months = dateTime.month.toDouble();
     var years = dateTime.year.toDouble();
-    // return CustomCircleProgress(maxWidth, 0.8);
-      // Padding(padding: const EdgeInsets.all(10.0),
-      // child: CustomCircleProgress(maxWidth, 0.8)); // maxProgress不能大于1
     // return Container(
     //     height: 100.0, // 180.0
     //     width: 200.0, color: HexColor('#f9f6e8'),

@@ -52,7 +52,7 @@ dependencies:
   ele_theme: ^0.0.1
   ele_progress: ^0.0.1
   sleek_circular_slider: ^2.0.1
-#  flukit: ^3.0.1
+  timelines: ^0.1.0
   typewritertext: ^1.8.0
   image_picker: ^0.8.4+11
   adaptive_dialog: ^1.4.0

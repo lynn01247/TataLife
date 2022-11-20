@@ -297,4 +297,62 @@ class Global {
     "连自己的心都不相信的人，才是最可怜的弱者。",
     "你所有的借口不过你给拖延和懒惰找的理由，哪有那么多未来等着你，你只有现在。"
   ];
+
+  static List listData = [
+    {
+      'id': "1",
+      'day': '07-08',
+      'status': _TimelineStatus.todo,
+      'time': '13:20',
+      'remark': "备注：降价1000客户可考虑，辛苦再撮合备注：降价1000客户可考虑，辛苦再撮合备注：降价1000客户可考虑",
+      'description': '',
+      'subtitle': '何神(主播)',
+      'title': "新建工单"
+    },
+    {
+      'id': "2",
+      'day': '07-08',
+      'status': _TimelineStatus.sync,
+      'time': '13:20',
+      'description': "备注：降价1000客户可考虑，辛苦再撮合备注：降价1000客户可考虑",
+      'subtitle': '吴飞飞(销售专员)',
+      'title': "联系客户"
+    },
+    {
+      'id': "3",
+      'day': '07-08',
+      'status': _TimelineStatus.inProgress,
+      'time': '13:20',
+      'description':
+          "备注：降价1000客户可考虑，辛苦再撮合备注：降价1000客户可考虑，辛苦再撮合备注：降价1000客户可考虑，辛苦再撮合",
+      // 'subtitle': '何神(主播)',
+      'title': "新建工单"
+    },
+    {
+      'id': "4",
+      'day': '07-08',
+      'status': _TimelineStatus.done,
+      'time': '13:20',
+      'description':
+          "备注：降价1000客户可考虑，辛苦再撮合备注：降价1000客户可考虑，辛苦再撮合备注：降价1000客户可考虑，辛苦再撮合",
+      'subtitle': '何神(主播)',
+      'title': "新建工单"
+    },
+    {
+      'id': "5",
+      'day': '07-08',
+      'status': _TimelineStatus.done,
+      'time': '13:20',
+      'description': "备注：降价1000客户可考虑",
+      'subtitle': '何神(主播)',
+      'title': "新建工单"
+    }
+  ];
+}
+
+enum _TimelineStatus {
+  done,
+  sync,
+  inProgress,
+  todo,
 }

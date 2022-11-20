@@ -18,7 +18,7 @@ class Greetings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // debugPaintSizeEnabled = true; // 显示边界布局
+    // debugPaintSize/Enabled = true; // 显示边界布局
     int num = 1; // 支持变换
     String content = Global.dayWordList[num];
     return Column(children: [
@@ -36,20 +36,17 @@ class Greetings extends StatelessWidget {
                   children: const [Padding(padding: EdgeInsets.only(left: 15.0, top: 10.0), child: Expanded(child: Text("生命倒计时：", style: TextStyle(fontSize: 12),),),)],),)) : const SizedBox(),
         (vBody == 2) ? (
                 (type != null && type == 1 ) ?
-                Container(
-                    // 跑道模型
+                Container( // 跑道模型
                     height: MediaQuery.of(context).size.width / 2, // 180.0
                     width: MediaQuery.of(context).size.width,
                     color: HexColor('#f9f6e8'),
                     child: Stack(
                       alignment : Alignment.center, // 使用属性的形式
                       children: <Widget>[
-                        // Container(
-                        //   height: MediaQuery.of(context).size.height,
-                        //   width: MediaQuery.of(context).size.width,
-                        // ),
                         CircleProgress(MediaQuery.of(context).size.width),
-                        // Clock(MediaQuery.of(context).size.width),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(left: 25.0, right: 25.0, bottom: 20.0, top: 20.0),
+                        //   child: Clock(MediaQuery.of(context).size.width)),
                       ],
                     ))
                 : Container( // 默认水波模型【0或者空】

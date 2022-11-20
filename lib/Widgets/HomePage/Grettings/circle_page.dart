@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:todo_app/Widgets/HomePage/Grettings/CustomCircleProgress.dart';
-// import 'package:flukit/flukit.dart';
 
 double maxWidth = 0.0;
 
@@ -29,7 +28,7 @@ class _CircleProgressState extends State<CircleProgress> {
     return Scaffold(
         body: Container(
             color: HexColor('#f9f6e8'),
-            child: Center(child: _CircleProgressWidget())));
+            child: const Center(child: _CircleProgressWidget())));
   }
 }
 
@@ -40,16 +39,6 @@ class _CircleProgressWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomCircleProgress(width: maxWidth, progress: 1.0);
-    // return GradientCircularProgressIndicator(
-    //   colors: [Colors.teal, Colors.red],
-    //   radius: 50.0,
-    //   stokeWidth: 10.0,
-    //   value: 0.8,
-    //   totalAngle: 3*pi,
-    //   strokeCapRound: true,
-    //   stops: [0.1,0.2,0.2,0.2,0.2,0.1],
-    //   backgroundColor: Colors.transparent,
-    // );
+    return CustomCircleProgress(viewWidth: maxWidth, progress: 0.8, strokeWidth: 10.0,);
   }
 }
